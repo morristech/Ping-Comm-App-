@@ -1,10 +1,12 @@
 
-package com.yoscholar.ping.retrofitPojo.Login;
+package com.yoscholar.ping.retrofitPojo.conversations;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Login {
+import java.util.ArrayList;
+
+public class ConversationData {
 
     @SerializedName("status")
     @Expose
@@ -12,9 +14,9 @@ public class Login {
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("user")
+    @SerializedName("conversations")
     @Expose
-    private User user;
+    private ArrayList<Conversation> conversations = null;
 
     public String getStatus() {
         return status;
@@ -32,12 +34,12 @@ public class Login {
         this.message = message;
     }
 
-    public User getUser() {
-        return user;
+    public ArrayList<Conversation> getConversations() {
+        return conversations;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setConversations(ArrayList<Conversation> conversations) {
+        this.conversations = conversations;
     }
 
 }

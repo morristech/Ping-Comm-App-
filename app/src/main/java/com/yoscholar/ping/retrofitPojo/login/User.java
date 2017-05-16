@@ -1,5 +1,5 @@
 
-package com.yoscholar.ping.retrofitPojo.Login;
+package com.yoscholar.ping.retrofitPojo.login;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

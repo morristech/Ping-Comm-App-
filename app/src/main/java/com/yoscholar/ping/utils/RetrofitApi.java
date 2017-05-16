@@ -1,6 +1,7 @@
 package com.yoscholar.ping.utils;
 
-import com.yoscholar.ping.retrofitPojo.Login.Login;
+import com.yoscholar.ping.retrofitPojo.conversations.ConversationData;
+import com.yoscholar.ping.retrofitPojo.login.Login;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +47,13 @@ public class RetrofitApi {
                 @Field("password") String password,
                 @Field("device_id") String deviceId,
                 @Field("fcm_token") String fcmToken
+        );
+
+        @FormUrlEncoded
+        @POST("agrimtool1/CommApp/CommAppAPI.php?function=conversations")
+        Call<ConversationData> conversations(
+                @Field("username") String username,
+                @Field("token") String token
         );
     }
 }

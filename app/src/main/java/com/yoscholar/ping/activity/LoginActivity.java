@@ -17,7 +17,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.yoscholar.ping.R;
-import com.yoscholar.ping.retrofitPojo.Login.Login;
+import com.yoscholar.ping.retrofitPojo.login.Login;
 import com.yoscholar.ping.utils.AppPreference;
 import com.yoscholar.ping.utils.RetrofitApi;
 import com.yoscholar.ping.utils.Util;
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
     private void saveDetails(Login login) {
 
-        //AppPreference.saveBoolean(LoginActivity.this, AppPreference.IS_LOGGED_IN, true);
+        AppPreference.saveBoolean(LoginActivity.this, AppPreference.IS_LOGGED_IN, true);
         AppPreference.saveString(LoginActivity.this, AppPreference.EMAIL, login.getUser().getEmail());
         AppPreference.saveString(LoginActivity.this, AppPreference.USER_NAME, login.getUser().getUserName());
         AppPreference.saveString(LoginActivity.this, AppPreference.USER_ID, login.getUser().getUserId());
