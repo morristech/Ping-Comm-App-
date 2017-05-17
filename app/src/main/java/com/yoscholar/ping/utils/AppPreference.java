@@ -60,4 +60,16 @@ public class AppPreference {
         return sharedPref.getBoolean(key, false);
     }
 
+    public static void logOut(Context context) {
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove(IS_LOGGED_IN);
+        editor.remove(EMAIL);
+        editor.remove(USER_NAME);
+        editor.remove(USER_ID);
+        editor.remove(TOKEN);
+        editor.commit();
+
+    }
 }

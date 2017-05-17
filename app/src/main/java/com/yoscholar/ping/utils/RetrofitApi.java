@@ -2,6 +2,7 @@ package com.yoscholar.ping.utils;
 
 import com.yoscholar.ping.retrofitPojo.conversations.ConversationData;
 import com.yoscholar.ping.retrofitPojo.login.Login;
+import com.yoscholar.ping.retrofitPojo.refreshToken.RefrehToken;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,7 +44,7 @@ public class RetrofitApi {
         @FormUrlEncoded
         @POST("agrimtool1/CommApp/CommAppAPI.php?function=login")
         Call<Login> login(
-                @Field("username") String username,
+                @Field("email") String email,
                 @Field("password") String password,
                 @Field("device_id") String deviceId,
                 @Field("fcm_token") String fcmToken
@@ -52,8 +53,15 @@ public class RetrofitApi {
         @FormUrlEncoded
         @POST("agrimtool1/CommApp/CommAppAPI.php?function=conversations")
         Call<ConversationData> conversations(
-                @Field("username") String username,
+                @Field("email") String email,
                 @Field("token") String token
+        );
+
+        @FormUrlEncoded
+        @POST("agrimtool1/CommApp/CommAppAPI.php?function=refresh_token")
+        Call<RefrehToken> refreshToken(
+                @Field("email") String email,
+                @Field("user_id") String userId
         );
     }
 }

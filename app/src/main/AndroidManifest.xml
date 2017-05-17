@@ -40,6 +40,8 @@
 
         <activity android:name=".activity.NotificationActivity">
         </activity>
+        <activity android:name=".activity.MessagesActivity">
+        </activity>
     </application>
 
 </manifest>

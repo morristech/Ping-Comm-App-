@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     @Override
     public void onValidationSucceeded() {
 
-        Toast.makeText(this, "makes sense.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "makes sense.", Toast.LENGTH_SHORT).show();
         containerLinearLayout.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         login();
