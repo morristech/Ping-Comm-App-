@@ -1,5 +1,6 @@
 package com.yoscholar.ping.utils;
 
+import com.yoscholar.ping.retrofitPojo.conversation.Conversation;
 import com.yoscholar.ping.retrofitPojo.conversations.ConversationData;
 import com.yoscholar.ping.retrofitPojo.login.Login;
 import com.yoscholar.ping.retrofitPojo.refreshToken.RefrehToken;
@@ -51,6 +52,13 @@ public class RetrofitApi {
         );
 
         @FormUrlEncoded
+        @POST("agrimtool1/CommApp/CommAppAPI.php?function=refresh_token")
+        Call<RefrehToken> refreshToken(
+                @Field("email") String email,
+                @Field("user_id") String userId
+        );
+
+        @FormUrlEncoded
         @POST("agrimtool1/CommApp/CommAppAPI.php?function=conversations")
         Call<ConversationData> conversations(
                 @Field("email") String email,
@@ -58,10 +66,12 @@ public class RetrofitApi {
         );
 
         @FormUrlEncoded
-        @POST("agrimtool1/CommApp/CommAppAPI.php?function=refresh_token")
-        Call<RefrehToken> refreshToken(
-                @Field("email") String email,
-                @Field("user_id") String userId
+        @POST("agrimtool1/CommApp/CommAppAPI.php?function=conversation_messages")
+        Call<Conversation> conversationMessages(
+                @Field("child_id") String childId,
+                @Field("provider_id") String providerId,
+                @Field("token") String token
         );
+
     }
 }

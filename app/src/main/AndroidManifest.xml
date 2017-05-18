@@ -40,8 +40,9 @@
 
         <activity android:name=".activity.NotificationActivity">
         </activity>
-        <activity android:name=".activity.MessagesActivity">
-        </activity>
+        <activity
+            android:name=".activity.MessagesActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

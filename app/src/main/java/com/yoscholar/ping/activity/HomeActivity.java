@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.yoscholar.ping.R;
@@ -31,8 +34,15 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
+    public static final String CHILD_ID = "child_id";
+    public static final String CHILD_NAME = "child_name";
+    public static final String PROVIDER_ID = "provider_id";
+    public static final String PROVIDER_NAME = "provider_name";
+
     private Toolbar toolbar;
     private ListView conversationsListView;
+    private ProgressBar progressBar;
+
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
     @Override
@@ -51,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         conversationsListView = (ListView) findViewById(R.id.conversations_list_view);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     private void getConversations() {
@@ -100,8 +110,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void displayConversations(ArrayList<Conversation> conversationArrayList) {
+    private void displayConversations(final ArrayList<Conversation> conversationArrayList) {
 
+        conversationsListView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
 
         Collections.sort(conversationArrayList, new Comparator<Conversation>() {
             @Override
@@ -126,8 +138,22 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
         ConversationsAdapter conversationsAdapter = new ConversationsAdapter(HomeActivity.this, conversationArrayList);
         conversationsListView.setAdapter(conversationsAdapter);
+        conversationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(HomeActivity.this, MessagesActivity.class);
+                intent.putExtra(CHILD_ID, conversationArrayList.get(position).getChildId());
+                intent.putExtra(CHILD_NAME, conversationArrayList.get(position).getChildName());
+                intent.putExtra(PROVIDER_ID, conversationArrayList.get(position).getProviderId());
+                intent.putExtra(PROVIDER_NAME, conversationArrayList.get(position).getProviderName());
+
+                startActivity(intent);
+            }
+        });
     }
 
 
