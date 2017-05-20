@@ -12,6 +12,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.yoscholar.ping.R;
+import com.yoscholar.ping.activity.HomeActivity;
 import com.yoscholar.ping.activity.NotificationActivity;
 
 /**
@@ -59,7 +60,7 @@ public class MessagingService extends FirebaseMessagingService {
 
 
     private void sendNotification(String title, String body) {
-        Intent intent = new Intent(this, NotificationActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
