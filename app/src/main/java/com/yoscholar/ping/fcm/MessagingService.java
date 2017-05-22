@@ -13,7 +13,9 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.yoscholar.ping.R;
 import com.yoscholar.ping.activity.HomeActivity;
-import com.yoscholar.ping.activity.NotificationActivity;
+import com.yoscholar.ping.pojo.RefreshScreen;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by agrim on 11/5/17.
@@ -60,6 +62,10 @@ public class MessagingService extends FirebaseMessagingService {
 
 
     private void sendNotification(String title, String body) {
+
+        //post an event to refresh the HomeActivity
+        EventBus.getDefault().post(new RefreshScreen(true));
+
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

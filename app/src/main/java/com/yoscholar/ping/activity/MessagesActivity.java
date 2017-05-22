@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -14,10 +16,15 @@ import android.widget.Toast;
 
 import com.yoscholar.ping.R;
 import com.yoscholar.ping.adapter.ConversationMessagesAdapter;
+import com.yoscholar.ping.pojo.RefreshScreen;
 import com.yoscholar.ping.retrofitPojo.conversation.Conversation;
 import com.yoscholar.ping.retrofitPojo.conversation.ConversationMessage;
 import com.yoscholar.ping.utils.AppPreference;
 import com.yoscholar.ping.utils.RetrofitApi;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,6 +48,8 @@ public class MessagesActivity extends AppCompatActivity {
     private TextView childNameTextView;
     private TextView providerNameTextView;
     private ProgressBar progressBar;
+    private LinearLayout errorLinearLayout;
+    private Button retryButton;
 
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
@@ -69,10 +78,22 @@ public class MessagesActivity extends AppCompatActivity {
         conversationMessagesListView = (ListView) findViewById(R.id.conversation_messages_list_view);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        errorLinearLayout = (LinearLayout) findViewById(R.id.error_layout);
+        retryButton = (Button) findViewById(R.id.retry_button);
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                getConversationMessages();
+            }
+        });
     }
 
     private void getConversationMessages() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        conversationMessagesListView.setVisibility(View.GONE);
+        errorLinearLayout.setVisibility(View.GONE);
 
         RetrofitApi.ApiInterface apiInterface = RetrofitApi.getApiInterfaceInstance();
 
@@ -87,6 +108,10 @@ public class MessagesActivity extends AppCompatActivity {
             public void onResponse(Call<Conversation> call, Response<Conversation> response) {
 
                 if (response.isSuccessful()) {
+
+                    progressBar.setVisibility(View.GONE);
+                    conversationMessagesListView.setVisibility(View.VISIBLE);
+                    errorLinearLayout.setVisibility(View.GONE);
 
                     if (response.body().getStatus().equalsIgnoreCase("success")) {
 
@@ -107,6 +132,10 @@ public class MessagesActivity extends AppCompatActivity {
 
                 } else {
 
+                    progressBar.setVisibility(View.GONE);
+                    conversationMessagesListView.setVisibility(View.GONE);
+                    errorLinearLayout.setVisibility(View.VISIBLE);
+
                     Toast.makeText(MessagesActivity.this, "Some error.", Toast.LENGTH_SHORT).show();
 
                 }
@@ -116,6 +145,10 @@ public class MessagesActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Conversation> call, Throwable t) {
 
+                progressBar.setVisibility(View.GONE);
+                conversationMessagesListView.setVisibility(View.GONE);
+                errorLinearLayout.setVisibility(View.VISIBLE);
+
                 Toast.makeText(MessagesActivity.this, "Network error.", Toast.LENGTH_SHORT).show();
 
             }
@@ -124,9 +157,6 @@ public class MessagesActivity extends AppCompatActivity {
     }
 
     private void displayConversationMessages(ArrayList<ConversationMessage> conversationMessageArrayList) {
-
-        conversationMessagesListView.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
 
         Collections.sort(conversationMessageArrayList, new Comparator<ConversationMessage>() {
             @Override
@@ -179,4 +209,36 @@ public class MessagesActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getConversationMessages();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    /**
+     * Called to refresh the conversationMessagesListView when a new push notification is received.
+     * Called from {@link com.yoscholar.ping.fcm.MessagingService#sendNotification(String, String)}
+     *
+     * @param refreshScreen refreshScreen
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPushNotificationReceived(RefreshScreen refreshScreen) {
+
+        if (refreshScreen.isRefresh())
+            getConversationMessages();
+    }
 }

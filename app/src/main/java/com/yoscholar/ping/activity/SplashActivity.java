@@ -62,11 +62,6 @@ public class SplashActivity extends AppCompatActivity {
         else
             new Handler().postDelayed(new Runnable() {
 
-            /*
-             * Showing splash screen with a timer. This will be useful when you
-             * want to showToast case your app logo / company
-             */
-
                 @Override
                 public void run() {
 

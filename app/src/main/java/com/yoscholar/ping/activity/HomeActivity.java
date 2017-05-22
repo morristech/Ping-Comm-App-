@@ -7,16 +7,23 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.yoscholar.ping.R;
 import com.yoscholar.ping.adapter.ConversationsAdapter;
+import com.yoscholar.ping.pojo.RefreshScreen;
 import com.yoscholar.ping.retrofitPojo.conversations.Conversation;
 import com.yoscholar.ping.retrofitPojo.conversations.ConversationData;
 import com.yoscholar.ping.utils.AppPreference;
 import com.yoscholar.ping.utils.RetrofitApi;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -42,6 +49,8 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ListView conversationsListView;
     private ProgressBar progressBar;
+    private LinearLayout errorLinearLayout;
+    private Button retryButton;
 
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
@@ -52,7 +61,6 @@ public class HomeActivity extends AppCompatActivity {
 
         init();
 
-        getConversations();
     }
 
     private void init() {
@@ -62,9 +70,23 @@ public class HomeActivity extends AppCompatActivity {
 
         conversationsListView = (ListView) findViewById(R.id.conversations_list_view);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        errorLinearLayout = (LinearLayout) findViewById(R.id.error_layout);
+        retryButton = (Button) findViewById(R.id.retry_button);
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getConversations();
+            }
+        });
+
     }
 
     private void getConversations() {
+
+        progressBar.setVisibility(View.VISIBLE);
+        conversationsListView.setVisibility(View.GONE);
+        errorLinearLayout.setVisibility(View.GONE);
 
         RetrofitApi.ApiInterface apiInterface = RetrofitApi.getApiInterfaceInstance();
 
@@ -78,6 +100,10 @@ public class HomeActivity extends AppCompatActivity {
             public void onResponse(Call<ConversationData> call, Response<ConversationData> response) {
 
                 if (response.isSuccessful()) {
+
+                    progressBar.setVisibility(View.GONE);
+                    conversationsListView.setVisibility(View.VISIBLE);
+                    errorLinearLayout.setVisibility(View.GONE);
 
                     if (response.body().getStatus().equalsIgnoreCase("success")) {
 
@@ -97,12 +123,21 @@ public class HomeActivity extends AppCompatActivity {
                     }
 
                 } else {
+
+                    progressBar.setVisibility(View.GONE);
+                    conversationsListView.setVisibility(View.GONE);
+                    errorLinearLayout.setVisibility(View.VISIBLE);
+
                     Toast.makeText(HomeActivity.this, "Some error.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ConversationData> call, Throwable t) {
+
+                progressBar.setVisibility(View.GONE);
+                conversationsListView.setVisibility(View.GONE);
+                errorLinearLayout.setVisibility(View.VISIBLE);
 
                 Toast.makeText(HomeActivity.this, "Network error.", Toast.LENGTH_SHORT).show();
 
@@ -111,9 +146,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void displayConversations(final ArrayList<Conversation> conversationArrayList) {
-
-        conversationsListView.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
 
         Collections.sort(conversationArrayList, new Comparator<Conversation>() {
             @Override
@@ -126,8 +158,6 @@ public class HomeActivity extends AppCompatActivity {
 
                     date1 = dateFormat.parse(o1.getMessageTime());
                     date2 = dateFormat.parse(o2.getMessageTime());
-
-
                 } catch (ParseException e) {
 
                     Log.e(TAG, "Error while parsing date string : " + e);
@@ -137,7 +167,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
 
         ConversationsAdapter conversationsAdapter = new ConversationsAdapter(HomeActivity.this, conversationArrayList);
         conversationsListView.setAdapter(conversationsAdapter);
@@ -164,4 +193,37 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getConversations();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * Called to refresh the conversationMessagesListView when a new push notification is received.
+     * Called from {@link com.yoscholar.ping.fcm.MessagingService#sendNotification(String, String)}
+     *
+     * @param refreshScreen refreshScreen
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPushNotificationReceived(RefreshScreen refreshScreen) {
+
+        if (refreshScreen.isRefresh())
+            getConversations();
+    }
+
 }
