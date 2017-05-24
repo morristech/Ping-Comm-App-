@@ -64,7 +64,7 @@ public class ConversationsAdapter extends BaseAdapter {
 
         }
 
-        int color = Color.parseColor("#53AB3A");
+        int color = Color.parseColor("#F79E35");
 
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(conversationArrayList.get(position).getChildName().charAt(0) + "", color);

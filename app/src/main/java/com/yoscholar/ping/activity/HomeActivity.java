@@ -226,4 +226,9 @@ public class HomeActivity extends AppCompatActivity {
             getConversations();
     }
 
+    public void openYoScholar(View view) {
+
+
+
+    }
 }

@@ -18,7 +18,7 @@ import retrofit2.http.POST;
 
 public class RetrofitApi {
 
-    public static String baseUrl = "http://devcloudpos.yoscholar.com";
+    public static String baseUrl = "http://staging1.schoolsaamaan.website";
     public static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {
@@ -43,7 +43,7 @@ public class RetrofitApi {
     public interface ApiInterface {
 
         @FormUrlEncoded
-        @POST("agrimtool1/CommApp/CommAppAPI.php?function=login")
+        @POST("agrimtool2/CommApp/CommAppAPI.php?function=login")
         Call<Login> login(
                 @Field("email") String email,
                 @Field("password") String password,
@@ -52,21 +52,21 @@ public class RetrofitApi {
         );
 
         @FormUrlEncoded
-        @POST("agrimtool1/CommApp/CommAppAPI.php?function=refresh_token")
+        @POST("agrimtool2/CommApp/CommAppAPI.php?function=refresh_token")
         Call<RefrehToken> refreshToken(
                 @Field("email") String email,
                 @Field("user_id") String userId
         );
 
         @FormUrlEncoded
-        @POST("agrimtool1/CommApp/CommAppAPI.php?function=conversations")
+        @POST("agrimtool2/CommApp/CommAppAPI.php?function=conversations")
         Call<ConversationData> conversations(
                 @Field("email") String email,
                 @Field("token") String token
         );
 
         @FormUrlEncoded
-        @POST("agrimtool1/CommApp/CommAppAPI.php?function=conversation_messages")
+        @POST("agrimtool2/CommApp/CommAppAPI.php?function=conversation_messages")
         Call<Conversation> conversationMessages(
                 @Field("child_id") String childId,
                 @Field("provider_id") String providerId,

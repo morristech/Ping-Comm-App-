@@ -88,4 +88,12 @@
             android:text="@string/retry"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buy_at_yo_scholar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:onClick="openYoScholar"
+        android:text="Shop at : YoScholar.com"/>
 </FrameLayout>

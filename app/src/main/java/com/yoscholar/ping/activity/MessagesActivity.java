@@ -241,4 +241,9 @@ public class MessagesActivity extends AppCompatActivity {
         if (refreshScreen.isRefresh())
             getConversationMessages();
     }
+
+    public void openYoScholar(View view) {
+
+
+    }
 }
