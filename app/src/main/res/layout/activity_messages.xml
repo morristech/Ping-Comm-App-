@@ -94,6 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
         android:onClick="openYoScholar"
         android:text="Shop at : YoScholar.com"/>
 </FrameLayout>

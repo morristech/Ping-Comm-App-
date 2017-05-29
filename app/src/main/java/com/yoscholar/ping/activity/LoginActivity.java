@@ -100,7 +100,14 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
                 if (response.isSuccessful()) {
 
-                    saveDetails(response.body());
+                    if (response.body().getStatus().equalsIgnoreCase("success"))
+                        saveDetails(response.body());
+                    else {
+
+                        Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        containerLinearLayout.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
+                    }
 
                 } else {
 

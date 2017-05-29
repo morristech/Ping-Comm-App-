@@ -2,17 +2,9 @@ package com.yoscholar.ping.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.Intent;
+import android.net.Uri;
 import android.provider.Settings;
-import android.widget.Toast;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
 
 /**
  * Created by agrim on 16/11/16.
@@ -27,4 +19,8 @@ public class Util {
         return androidId;
     }
 
+    public static void openYoScholarSite(Context context) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.yoscholar.com/"));
+        context.startActivity(intent);
+    }
 }

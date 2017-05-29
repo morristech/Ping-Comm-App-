@@ -20,6 +20,7 @@ import com.yoscholar.ping.retrofitPojo.conversations.Conversation;
 import com.yoscholar.ping.retrofitPojo.conversations.ConversationData;
 import com.yoscholar.ping.utils.AppPreference;
 import com.yoscholar.ping.utils.RetrofitApi;
+import com.yoscholar.ping.utils.Util;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -228,7 +229,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void openYoScholar(View view) {
 
-
-
+        Util.openYoScholarSite(HomeActivity.this);
     }
 }

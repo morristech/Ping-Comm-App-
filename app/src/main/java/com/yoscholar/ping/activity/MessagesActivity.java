@@ -21,6 +21,7 @@ import com.yoscholar.ping.retrofitPojo.conversation.Conversation;
 import com.yoscholar.ping.retrofitPojo.conversation.ConversationMessage;
 import com.yoscholar.ping.utils.AppPreference;
 import com.yoscholar.ping.utils.RetrofitApi;
+import com.yoscholar.ping.utils.Util;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -244,6 +245,7 @@ public class MessagesActivity extends AppCompatActivity {
 
     public void openYoScholar(View view) {
 
+        Util.openYoScholarSite(MessagesActivity.this);
 
     }
 }
