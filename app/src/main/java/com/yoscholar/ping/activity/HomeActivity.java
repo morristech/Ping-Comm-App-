@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,6 +15,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.joanzapata.iconify.IconDrawable;
+import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.yoscholar.ping.R;
 import com.yoscholar.ping.adapter.ConversationsAdapter;
 import com.yoscholar.ping.pojo.RefreshScreen;
@@ -230,5 +234,37 @@ public class HomeActivity extends AppCompatActivity {
     public void openYoScholar(View view) {
 
         Util.openYoScholarSite(HomeActivity.this);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_home_activity, menu);
+
+        menu.findItem(R.id.search).setIcon(new IconDrawable(this, FontAwesomeIcons.fa_search)
+                .colorRes(android.R.color.white)
+                .actionBarSize());
+
+        menu.findItem(R.id.settings).setIcon(new IconDrawable(this, FontAwesomeIcons.fa_cog)
+                .colorRes(android.R.color.white)
+                .actionBarSize());
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.settings:
+                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
