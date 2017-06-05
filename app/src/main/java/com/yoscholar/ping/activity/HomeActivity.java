@@ -242,10 +242,6 @@ public class HomeActivity extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu_home_activity, menu);
 
-        menu.findItem(R.id.search).setIcon(new IconDrawable(this, FontAwesomeIcons.fa_search)
-                .colorRes(android.R.color.white)
-                .actionBarSize());
-
         menu.findItem(R.id.settings).setIcon(new IconDrawable(this, FontAwesomeIcons.fa_cog)
                 .colorRes(android.R.color.white)
                 .actionBarSize());
@@ -259,9 +255,14 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.settings:
+
                 startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
                 return true;
 
+            case R.id.about:
+
+                startActivity(new Intent(HomeActivity.this, AboutActivity.class));
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

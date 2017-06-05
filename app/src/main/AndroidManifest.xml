@@ -46,6 +46,11 @@
             android:name=".activity.SettingsActivity"
             android:label="Settings"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ForgotPasswordActivity">
+        </activity>
     </application>
 
 </manifest>

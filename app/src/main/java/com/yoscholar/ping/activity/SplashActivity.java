@@ -98,6 +98,17 @@ public class SplashActivity extends AppCompatActivity {
 
                         finish();
 
+                    } else if (response.body().getStatus().equalsIgnoreCase("failure")) {
+
+                        AppPreference.logOut(SplashActivity.this);
+
+                        Toast.makeText(SplashActivity.this, "Your Account no longer exists.", Toast.LENGTH_SHORT).show();
+
+                        openLoginScreen();
+
+                        finish();
+
+
                     }
 
                 } else {
@@ -116,5 +127,13 @@ public class SplashActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void openLoginScreen() {
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
 }

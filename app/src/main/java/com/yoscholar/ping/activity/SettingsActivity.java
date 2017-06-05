@@ -6,18 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joanzapata.iconify.widget.IconTextView;
-import com.yoscholar.ping.BuildConfig;
 import com.yoscholar.ping.R;
 import com.yoscholar.ping.utils.AppPreference;
 
 public class SettingsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView versionInfoTextView;
     private IconTextView signOutTextView;
 
     @Override
@@ -34,9 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        versionInfoTextView = (TextView) findViewById(R.id.version_info);
-        versionInfoTextView.setText("version : " + BuildConfig.VERSION_NAME);
 
         signOutTextView = (IconTextView) findViewById(R.id.sign_out);
         signOutTextView.setOnClickListener(new View.OnClickListener() {
