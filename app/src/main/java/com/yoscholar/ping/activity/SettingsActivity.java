@@ -15,7 +15,8 @@ import com.yoscholar.ping.utils.AppPreference;
 public class SettingsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private IconTextView signOutTextView;
+    private IconTextView signOut;
+    private IconTextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,18 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        signOutTextView = (IconTextView) findViewById(R.id.sign_out);
-        signOutTextView.setOnClickListener(new View.OnClickListener() {
+        forgotPassword = (IconTextView) findViewById(R.id.forgot_password);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(SettingsActivity.this, ForgotPasswordActivity.class));
+
+            }
+        });
+
+        signOut = (IconTextView) findViewById(R.id.sign_out);
+        signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
