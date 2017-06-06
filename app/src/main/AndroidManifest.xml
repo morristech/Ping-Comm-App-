@@ -50,7 +50,7 @@
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.ForgotPasswordActivity"
+            android:name=".activity.PasswordActivity"
             android:label="Forgot Password"
             android:screenOrientation="portrait"/>
     </application>

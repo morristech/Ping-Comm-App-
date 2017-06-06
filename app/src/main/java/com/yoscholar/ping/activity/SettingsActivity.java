@@ -14,9 +14,10 @@ import com.yoscholar.ping.utils.AppPreference;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    public static final String OPERATION = "operation";
     private Toolbar toolbar;
     private IconTextView signOut;
-    private IconTextView forgotPassword;
+    private IconTextView changePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,14 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        forgotPassword = (IconTextView) findViewById(R.id.forgot_password);
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
+        changePassword = (IconTextView) findViewById(R.id.change_password);
+        changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(SettingsActivity.this, ForgotPasswordActivity.class));
+                Intent intent = new Intent(SettingsActivity.this, PasswordActivity.class);
+                intent.putExtra(OPERATION, "Change Password");
+                startActivity(intent);
 
             }
         });

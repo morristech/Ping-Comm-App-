@@ -4,6 +4,7 @@ import com.yoscholar.ping.retrofitPojo.conversation.Conversation;
 import com.yoscholar.ping.retrofitPojo.conversations.ConversationData;
 import com.yoscholar.ping.retrofitPojo.login.Login;
 import com.yoscholar.ping.retrofitPojo.refreshToken.RefrehToken;
+import com.yoscholar.ping.retrofitPojo.tokenDetails.TokenDetails;
 
 import java.util.concurrent.TimeUnit;
 
@@ -73,5 +74,10 @@ public class RetrofitApi {
                 @Field("token") String token
         );
 
+        @FormUrlEncoded
+        @POST("agrimtool2/CommApp/CommAppAPI.php?function=generate_otp")
+        Call<TokenDetails> generateOTP(
+                @Field("mobile") String mobile
+        );
     }
 }

@@ -64,14 +64,14 @@
                 android:textSize="16sp"/>
 
             <com.joanzapata.iconify.widget.IconTextView
-                android:id="@+id/forgot_password"
+                android:id="@+id/change_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="{fa-lock 25sp}    Forgot password"
+                android:text="{fa-lock 25sp}    Change password"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="16sp"/>
 
