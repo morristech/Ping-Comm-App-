@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     @NotEmpty(message = "Password cannot be empty.")
     private EditText passwordEditText;
     private Button loginButton;
+    private TextView forgotPasswordTextView;
 
     private LinearLayout containerLinearLayout;
     private ProgressBar progressBar;
@@ -74,6 +76,18 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             }
         });
 
+        forgotPasswordTextView = (TextView) findViewById(R.id.forgot_password_text_View);
+        forgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(LoginActivity.this, PasswordActivity.class);
+                intent.putExtra(SettingsActivity.OPERATION, "Forgot Password");
+
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void login() {

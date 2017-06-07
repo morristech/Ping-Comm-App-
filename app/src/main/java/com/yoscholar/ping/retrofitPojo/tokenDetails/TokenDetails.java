@@ -9,6 +9,9 @@ public class TokenDetails {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("message")
+    @Expose
+    private String message;
     @SerializedName("token_id")
     @Expose
     private String tokenId;
@@ -28,6 +31,14 @@ public class TokenDetails {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getTokenId() {

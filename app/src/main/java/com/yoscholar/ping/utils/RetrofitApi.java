@@ -3,6 +3,7 @@ package com.yoscholar.ping.utils;
 import com.yoscholar.ping.retrofitPojo.conversation.Conversation;
 import com.yoscholar.ping.retrofitPojo.conversations.ConversationData;
 import com.yoscholar.ping.retrofitPojo.login.Login;
+import com.yoscholar.ping.retrofitPojo.passwordSet.PasswordSet;
 import com.yoscholar.ping.retrofitPojo.refreshToken.RefrehToken;
 import com.yoscholar.ping.retrofitPojo.tokenDetails.TokenDetails;
 
@@ -78,6 +79,13 @@ public class RetrofitApi {
         @POST("agrimtool2/CommApp/CommAppAPI.php?function=generate_otp")
         Call<TokenDetails> generateOTP(
                 @Field("mobile") String mobile
+        );
+
+        @FormUrlEncoded
+        @POST("agrimtool2/CommApp/CommAppAPI.php?function=change_password")
+        Call<PasswordSet> setPassword(
+                @Field("token_id") String tokenId,
+                @Field("password") String password
         );
     }
 }
