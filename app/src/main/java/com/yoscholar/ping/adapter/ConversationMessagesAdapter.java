@@ -72,10 +72,10 @@ public class ConversationMessagesAdapter extends BaseAdapter {
             image.setImageResource(R.drawable.ic_notifications_black_24dp);
 
         TextView childNameTextView = (TextView) convertView.findViewById(R.id.message_title_text_view);
-        childNameTextView.setText(conversationMessageArrayList.get(position).getTitle());
+        childNameTextView.setText(conversationMessageArrayList.get(position).getTitle().trim());
 
         TextView providerNameTextView = (TextView) convertView.findViewById(R.id.message_content_text_view);
-        providerNameTextView.setText(conversationMessageArrayList.get(position).getContent());
+        providerNameTextView.setText(conversationMessageArrayList.get(position).getContent().trim());
 
         TextView messageTimeTextView = (TextView) convertView.findViewById(R.id.relative_time_text_view);
 

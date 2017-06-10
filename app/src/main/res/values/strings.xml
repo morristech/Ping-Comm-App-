@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ping</string>
+    <string name="app_name">YoPing</string>
     <string name="login">LOGIN</string>
     <string name="retry">RETRY</string>
     <string name="settings">Settings</string>

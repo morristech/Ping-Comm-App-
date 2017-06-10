@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joanzapata.iconify.widget.IconTextView;
@@ -25,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
     private IconTextView signOut;
     private IconTextView changePassword;
     private IconTextView openSourceLicenses;
+    private TextView userNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,9 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        userNameTextView = (TextView) findViewById(R.id.user_name);
+        userNameTextView.setText(AppPreference.getString(SettingsActivity.this, AppPreference.USER_NAME));
+
         openSourceLicenses = (IconTextView) findViewById(R.id.open_source_licenses);
         openSourceLicenses.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
                 final Notices notices = new Notices();
                 notices.addNotice(new Notice("ragunathjawahar/android-saripaar", "https://github.com/ragunathjawahar/android-saripaar", "Copyright 2012 - 2015 Mobs & Geeks", new ApacheSoftwareLicense20()));
                 notices.addNotice(new Notice("square/okhttp", "https://github.com/square/okhttp", "Copyright 2016 Square, Inc.", new ApacheSoftwareLicense20()));
-                notices.addNotice(new Notice("quare/retrofit", "https://github.com/square/retrofit", "Copyright 2013 Square, Inc.", new ApacheSoftwareLicense20()));
+                notices.addNotice(new Notice("square/retrofit", "https://github.com/square/retrofit", "Copyright 2013 Square, Inc.", new ApacheSoftwareLicense20()));
                 notices.addNotice(new Notice("google/gson", "https://github.com/google/gson", "Copyright 2008 Google Inc.", new ApacheSoftwareLicense20()));
                 notices.addNotice(new Notice("JoanZapata/android-iconify", "https://github.com/JoanZapata/android-iconify", "Copyright 2015 Joan Zapata", new ApacheSoftwareLicense20()));
                 notices.addNotice(new Notice("greenrobot/EventBus", "https://github.com/greenrobot/EventBus", "Copyright (C) 2012-2016 Markus Junginger, greenrobot (http://greenrobot.org)", new ApacheSoftwareLicense20()));
